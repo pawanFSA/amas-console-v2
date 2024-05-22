@@ -1,22 +1,17 @@
 import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import AuthButton from "./components/AuthButton";
 
 export default async function Home() {
   const session = await getServerSession();
 
-  console.log("session: ", session);
+  if (session) {
+    redirect("/dashboard");
+  }
+
   return (
     <>
-      getServerSession Result:{" "}
-      {session?.user?.name ? (
-        <div>
-          <ul>
-            <li>{session?.user?.name}</li>
-            <li>{session?.user?.email}</li>
-          </ul>
-        </div>
-      ) : (
-        <div>Not Logged in</div>
-      )}
+      <AuthButton />
     </>
   );
 }
