@@ -4,12 +4,14 @@ import Sidebar from "../components/Sidebar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <nav className="bg-slate-200">
         <AuthButton />
       </nav>
-      <Sidebar />
-      {children}
+      <div className="flex flex-row w-full flex-grow">
+        <Sidebar />
+        {children}
+      </div>
     </div>
   );
 };
