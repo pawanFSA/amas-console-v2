@@ -21,16 +21,12 @@ export async function addCohort({
   csvData: any[];
   amasEmail: string;
 }) {
-  console.log(amasEmail);
-
   // get the amasId
   const amas = await prisma.user.findUnique({
     where: {
       email: amasEmail,
     },
   });
-
-  // create instructor in db if not there already
 
   // create the cohort in the database
 

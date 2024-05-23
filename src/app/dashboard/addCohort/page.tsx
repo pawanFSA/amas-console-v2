@@ -3,6 +3,14 @@ import CSVReader from "react-csv-reader";
 import { useState } from "react";
 import { addCohort } from "@/app/actions";
 import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+
+const papaparseOptions = {
+  header: true,
+  dynamicTyping: true,
+  skipEmptyLines: true,
+  transformHeader: (header: any) => header.toLowerCase().replace(/\W/g, "_"),
+};
 
 export default function AddCohort() {
   const session = useSession();
@@ -24,6 +32,7 @@ export default function AddCohort() {
     instructor: "",
   });
   const [csvData, setCSVData] = useState([]);
+  const [error, setError] = useState<any>("");
 
   function handleCSVData(data: any, fileInfo: any) {
     setCSVData(data);
@@ -35,18 +44,24 @@ export default function AddCohort() {
 
   async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await addCohort({ formData, csvData, amasEmail });
+    try {
+      if (typeof amasEmail !== "string") {
+        return;
+      }
+      await addCohort({
+        formData,
+        csvData,
+        amasEmail,
+      });
+      redirect(`/dashboard`);
+    } catch (error) {
+      alert(error);
+    }
   }
-
-  const papaparseOptions = {
-    header: true,
-    dynamicTyping: true,
-    skipEmptyLines: true,
-    transformHeader: (header: any) => header.toLowerCase().replace(/\W/g, "_"),
-  };
 
   return (
     <form className="flex flex-col justify-center" onSubmit={handleFormSubmit}>
+      {error && <h1>{JSON.stringify(error)}</h1>}
       <label htmlFor="code">
         {" "}
         Cohort Code:{" "}
