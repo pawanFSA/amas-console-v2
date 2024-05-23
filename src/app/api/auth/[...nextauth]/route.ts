@@ -11,11 +11,10 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn(params: any) {
-      console.log("email", params.user.email);
       // Check if user exists
       let existingUser = await prisma.user.findUnique({
         where: {
-          email: params.user.email,
+          email: params?.user?.email,
         },
       });
       if (!existingUser) {

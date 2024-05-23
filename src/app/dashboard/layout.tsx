@@ -17,9 +17,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <h1>Welcome, {session?.user?.name}</h1>
         <AuthButton />
       </nav>
-      <div className="flex flex-row w-full flex-grow">
+      <div className="flex flex-row w-full flex-grow ">
         <Sidebar />
-        {children}
+        <div className="flex w-full h-full justify-center">{children}</div>
       </div>
     </div>
   );

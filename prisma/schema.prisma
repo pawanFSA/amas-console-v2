@@ -19,16 +19,24 @@ model User {
 
 model Student {
   id String @id @default(uuid())
-  learnDotId String @unique
+  learndotid String @unique
+  createdat DateTime
+  fullname String
+  preferredname String
+  nickname String?
+  personalpronouns String?
   email String @unique
-  firstName String
-  lastName String
-  hubspotId String?
+  firstname String
+  lastname String
+  phone String?
+  studentprofile String
+  github String?
+  hubspotid BigInt?
   section String?
-  tuitionPayor String?
-  governmentPayor String?
-  cohort Cohort @relation(fields: [cohortId], references: [id])
-  cohortId String
+  tuitionpayor String?
+  governmentpayor String?
+  cohort Cohort @relation(fields: [cohortid], references: [id])
+  cohortid String
 }
 
 model Cohort {
@@ -38,17 +46,13 @@ model Cohort {
   endDate DateTime
   zoomRoom String?
   zoomRoomLink String?
+  zoomRoomHostKey String?
+  zoomAccountLogin String?
+  zoomAccountPassword String?
   ghTeamLink String?
   cohortFolderLink String?
-  AMAS User @relation(fields: [AMASId], references: [id])
-  AMASId String
+  AMAS User? @relation(fields: [AMASId], references: [id])
+  AMASId String?
   students Student[]
-  Instructors Instructor[]
-}
-
-model Instructor {
-  id String @id @default(uuid())
-  firstName String
-  lastName String
-  cohorts Cohort[]
+  instructor String?
 }
