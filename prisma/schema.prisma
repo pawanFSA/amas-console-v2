@@ -14,5 +14,41 @@ model User {
   id String @id @default(uuid())
   name String
   email String @unique
+  cohorts Cohort[]
 }
 
+model Student {
+  id String @id @default(uuid())
+  learnDotId String @unique
+  email String @unique
+  firstName String
+  lastName String
+  hubspotId String?
+  section String?
+  tuitionPayor String?
+  governmentPayor String?
+  cohort Cohort @relation(fields: [cohortId], references: [id])
+  cohortId String
+}
+
+model Cohort {
+  id String @id @default(uuid())
+  code String @unique
+  startDate DateTime
+  endDate DateTime
+  zoomRoom String?
+  zoomRoomLink String?
+  ghTeamLink String?
+  cohortFolderLink String?
+  AMAS User @relation(fields: [AMASId], references: [id])
+  AMASId String
+  students Student[]
+  Instructors Instructor[]
+}
+
+model Instructor {
+  id String @id @default(uuid())
+  firstName String
+  lastName String
+  cohorts Cohort[]
+}
