@@ -14,7 +14,6 @@ const papaparseOptions = {
 
 export default function AddCohort() {
   const session = useSession();
-  console.log("session: ", session);
 
   const amasEmail = session?.data?.user?.email;
 

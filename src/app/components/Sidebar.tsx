@@ -26,7 +26,13 @@ export default async function Sidebar() {
       <Nav />
       <ul>
         {cohorts.map((cohort) => {
-          return <li>{cohort.code}</li>;
+          return (
+            <li>
+              <Link href={`/dashboard/cohort/${cohort.code}`}>
+                {cohort.code}
+              </Link>
+            </li>
+          );
         })}
       </ul>
     </div>
