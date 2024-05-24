@@ -18,13 +18,14 @@ export const authOptions = {
         },
       });
       if (!existingUser) {
-        await prisma.user.create({
+        existingUser = await prisma.user.create({
           data: {
             name: params.user.name,
             email: params.user.email,
           },
         });
       }
+      params.user.amasId = existingUser.id;
       return true;
     },
   },
