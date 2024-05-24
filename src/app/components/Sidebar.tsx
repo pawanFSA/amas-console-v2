@@ -21,12 +21,14 @@ export default async function Sidebar() {
     },
   });
 
-  console.log("COHORTS: ", cohorts);
-
   return (
     <div className="bg-slate-300">
       <Nav />
-      <CohortList cohorts={cohorts} />
+      <ul>
+        {cohorts.map((cohort) => {
+          return <li>{cohort.code}</li>;
+        })}
+      </ul>
     </div>
   );
 }
@@ -36,15 +38,5 @@ function Nav() {
     <nav>
       <Link href="/dashboard/addCohort">Add Cohort</Link>
     </nav>
-  );
-}
-
-function CohortList({ cohorts }) {
-  return (
-    <ul>
-      {cohorts.map((cohort) => {
-        return <li>{cohort.code}</li>;
-      })}
-    </ul>
   );
 }
